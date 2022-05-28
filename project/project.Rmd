@@ -1,0 +1,309 @@
+---
+title: "502 project"
+author: "Enbo Tian"
+date: "2021/11/17"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r}
+library(tidyverse)
+library(lubridate)
+library(dplyr)
+rm(list=ls())
+data <- read.csv("DS502dataset.csv")
+  
+store <- as.factor(data$Store)
+date <- data$Date
+sales <- data$Weekly_Sales
+holiday <- as.factor(data$Holiday_Flag)
+temperature <- data$Temperature
+fuelprice <- data$Fuel_Price
+CPI <- data$CPI
+unemployment <- data$Unemployment
+df<-data.frame(store,date,sales,holiday,temperature,fuelprice,CPI,unemployment)
+
+```
+
+```{r}
+df1 <- filter(df, store==1)
+date<-as.Date(df1$date)
+d<-df1 %>% arrange(df1$date)
+
+temp <- ts(d[,5],start=2010,freq=48)
+ts.plot(temp,gpars = list(xlab = "Week", ylab = "temperature"), main ="temperature by date")
+```
+
+```{r}
+
+counth =0
+countt = 0
+countf = 0
+countc =0
+countu = 0
+countha =0
+countta = 0
+countfa = 0
+countca =0
+countua = 0
+for(i in 1:45){
+dfi <- filter(df, store==i)
+date <- as.Date(dfi$date)
+dfi <- dfi[order(date),]
+walmart <- ts(dfi[,3],start=2010,freq=48)
+ts.plot(walmart,gpars = list(xlab = "Week", ylab = "sales"), main =paste("store",as.character(i)))
+
+slri <- lm(sales~.,data = dfi[,-1:-2])
+s <- summary(slri)
+if (s$coefficients[2,4]< 0.05)
+  counth= counth+1
+if (s$coefficients[3,4]< 0.05)
+  countt= countt+1
+if (s$coefficients[4,4]< 0.05)
+  countf= countf+1
+if (s$coefficients[5,4]< 0.05)
+  countc= countc+1
+if (s$coefficients[6,4]< 0.05)
+  countu= countu+1
+
+
+aovi <- aov(sales~.,data = dfi[,-1:-2])
+sa <- summary(aovi)
+if (sa[[1]][1,5]< 0.05)
+  countha= countha+1
+if (sa[[1]][2,5]< 0.05)
+  countta= countta+1
+if (sa[[1]][3,5]< 0.05)
+  countfa= countfa+1
+if (sa[[1]][4,5]< 0.05)
+  countca= countca+1
+if (sa[[1]][5,5]< 0.05)
+  countua= countua+1
+}
+
+counth 
+countt 
+countf 
+countc 
+countu
+
+countha 
+countta 
+countfa 
+countca 
+countua
+```
+
+30,33,36,38,43
+```{r}
+df1 <- filter(df, store==1)
+slr1 <- lm(sales~.,data = df1[,-1:-2])
+summary(slr1)
+df2 <- filter(df, store==2)
+slr2 <- lm(sales~.,data = df2[,-1:-2])
+summary(slr2)
+df3 <- filter(df, store==3)
+slr3 <- lm(sales~.,data = df3[,-1:-2])
+summary(slr3)
+df4 <- filter(df, store==4)
+slr4 <- lm(sales~.,data = df4[,-1:-2])
+summary(slr4)
+df5 <- filter(df, store==5)
+slr5 <- lm(sales~.,data = df5[,-1:-2])
+summary(slr5)
+df6 <- filter(df, store==6)
+slr6 <- lm(sales~.,data = df6[,-1:-2])
+summary(slr6)
+df7 <- filter(df, store==7)
+slr7 <- lm(sales~.,data = df7[,-1:-2])
+summary(slr7)
+df8 <- filter(df, store==8)
+slr8 <- lm(sales~.,data = df8[,-1:-2])
+summary(slr8)
+df9 <- filter(df, store==9)
+slr9 <- lm(sales~.,data = df9[,-1:-2])
+summary(slr9)
+df10 <- filter(df, store==10)
+slr10 <- lm(sales~.,data = df10[,-1:-2])
+summary(slr10)
+
+df11 <- filter(df, store==11)
+slr11 <- lm(sales~.,data = df11[,-1:-2])
+summary(slr11)
+df12 <- filter(df, store==12)
+slr12 <- lm(sales~.,data = df12[,-1:-2])
+summary(slr12)
+df13 <- filter(df, store==13)
+slr13 <- lm(sales~.,data = df13[,-1:-2])
+summary(slr13)
+df14 <- filter(df, store==14)
+slr14 <- lm(sales~.,data = df14[,-1:-2])
+summary(slr4)
+df15 <- filter(df, store==15)
+slr15 <- lm(sales~.,data = df15[,-1:-2])
+summary(slr5)
+df16 <- filter(df, store==16)
+slr16 <- lm(sales~.,data = df16[,-1:-2])
+summary(slr16)
+df17 <- filter(df, store==17)
+slr17 <- lm(sales~.,data = df17[,-1:-2])
+summary(slr17)
+df18 <- filter(df, store==18)
+slr18 <- lm(sales~.,data = df18[,-1:-2])
+summary(slr18)
+df19 <- filter(df, store==19)
+slr19 <- lm(sales~.,data = df19[,-1:-2])
+summary(slr19)
+df20 <- filter(df, store==20)
+slr20 <- lm(sales~.,data = df20[,-1:-2])
+summary(slr20)
+
+df21 <- filter(df, store==21)
+slr21 <- lm(sales~.,data = df21[,-1:-2])
+summary(slr21)
+df22 <- filter(df, store==22)
+slr22 <- lm(sales~.,data = df22[,-1:-2])
+summary(slr22)
+df23 <- filter(df, store==23)
+slr23 <- lm(sales~.,data = df23[,-1:-2])
+summary(slr23)
+df24 <- filter(df, store==24)
+slr24 <- lm(sales~.,data = df24[,-1:-2])
+summary(slr24)
+df25 <- filter(df, store==25)
+slr25 <- lm(sales~.,data = df25[,-1:-2])
+summary(slr25)
+df26 <- filter(df, store==26)
+slr26 <- lm(sales~.,data = df26[,-1:-2])
+summary(slr26)
+df27 <- filter(df, store==27)
+slr27 <- lm(sales~.,data = df27[,-1:-2])
+summary(slr27)
+df28 <- filter(df, store==28)
+slr28 <- lm(sales~.,data = df28[,-1:-2])
+summary(slr28)
+df29 <- filter(df, store==29)
+slr29 <- lm(sales~.,data = df29[,-1:-2])
+summary(slr29)
+df30 <- filter(df, store==30)
+slr30 <- lm(sales~.,data = df30[,-1:-2])
+summary(slr30)
+
+df31 <- filter(df, store==31)
+slr31 <- lm(sales~.,data = df31[,-1:-2])
+summary(slr1)
+df32 <- filter(df, store==32)
+slr32 <- lm(sales~.,data = df32[,-1:-2])
+summary(slr32)
+df33 <- filter(df, store==33)
+slr33 <- lm(sales~.,data = df33[,-1:-2])
+summary(slr33)
+df34 <- filter(df, store==34)
+slr34 <- lm(sales~.,data = df34[,-1:-2])
+summary(slr34)
+df35 <- filter(df, store==35)
+slr35 <- lm(sales~.,data = df35[,-1:-2])
+summary(slr35)
+df36 <- filter(df, store==36)
+slr36 <- lm(sales~.,data = df36[,-1:-2])
+summary(slr36)
+df37 <- filter(df, store==37)
+slr37 <- lm(sales~.,data = df37[,-1:-2])
+summary(slr37)
+df38 <- filter(df, store==38)
+slr38 <- lm(sales~.,data = df38[,-1:-2])
+summary(slr38)
+df39 <- filter(df, store==39)
+slr39 <- lm(sales~.,data = df39[,-1:-2])
+summary(slr39)
+df40 <- filter(df, store==40)
+slr40 <- lm(sales~.,data = df40[,-1:-2])
+summary(slr40)
+
+df41 <- filter(df, store==41)
+slr41 <- lm(sales~.,data = df41[,-1:-2])
+summary(slr41)
+df42 <- filter(df, store==42)
+slr42 <- lm(sales~.,data = df42[,-1:-2])
+summary(slr42)
+df43 <- filter(df, store==43)
+slr43 <- lm(sales~.,data = df43[,-1:-2])
+summary(slr43)
+df44 <- filter(df, store==44)
+slr44 <- lm(sales~.,data = df44[,-1:-2])
+summary(slr44)
+df45 <- filter(df, store==45)
+slr45 <- lm(sales~.,data = df45[,-1:-2])
+summary(slr45)
+
+```
+```{r}
+an1 = aov(sales~.,data = df1[,-1:-2])
+summary(an1)
+```
+
+
+```{r}
+counth =0
+countt = 0
+countf = 0
+countc =0
+countu = 0
+for(i in 1:45){
+dfi <- filter(df, store==i)
+date <- as.Date(dfi$date)
+mlri <- lm(sales~holiday+log(temperature)+log(fuelprice)+log(CPI)+log(unemployment),data = dfi)
+s <- summary(mlri)
+if (s$coefficients[2,4]< 0.05)
+  counth= counth+1
+if (s$coefficients[3,4]< 0.05)
+  countt= countt+1
+if (s$coefficients[4,4]< 0.05)
+  countf= countf+1
+if (s$coefficients[5,4]< 0.05)
+  countc= countc+1
+if (s$coefficients[6,4]< 0.05)
+  countu= countu+1
+
+}
+counth 
+countt 
+countf 
+countc 
+countu
+```
+
+```{r}
+an <- aov(sales~store+date+holiday*temperature*fuelprice*CPI*unemployment,data =df)
+summary(an)
+
+
+```
+```{r}
+an <- aov(sales~store+date+holiday+temperature+unemployment 
+          + holiday:fuelprice + temperature:fuelprice + temperature:CPI + fuelprice:CPI
+          + temperature:unemployment+holiday:temperature:CPI+temperature:CPI:unemployment+fuelprice:CPI:unemployment,data = df)
+summary(an)
+```
+```{r}
+mlr <- lm(sales~store+date+holiday+temperature+unemployment 
+          + temperature:fuelprice + fuelprice:CPI
+          + temperature:unemployment+holiday:temperature:CPI+fuelprice:CPI:unemployment,data = df)
+an <- aov(sales~store+date+holiday+temperature+unemployment 
+          + temperature:fuelprice + fuelprice:CPI+ temperature:unemployment 
+          + holiday:temperature:CPI + fuelprice:CPI:unemployment , data = df)
+summary(an)
+
+summary(mlr)
+accuracy(mlr)
+```
+```{r}
+library(forecast)
+library(smooth)
+library(randomForest)
+df = df[order(date),]
+lr <- lm(sales ~temperature*fuelprice*CPI*unemployment,data = df1[1:120,])
+summary(lr)
+
+```
